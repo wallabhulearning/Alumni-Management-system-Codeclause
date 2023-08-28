@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Management System</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1>Alumni Management System</h1>
+
+    <h2>Add Alumni</h2>
+    <form action="backend.php" method="POST">
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" required><br>
+
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="graduation_year">Graduation Year:</label>
+        <input type="number" id="graduation_year" name="graduation_year" required><br>
+
+        <label for="major">Major:</label>
+        <input type="text" id="major" name="major"><br>
+
+        <label for="job_title">Job Title:</label>
+        <input type="text" id="job_title" name="job_title"><br>
+
+        <label for="company">Company:</label>
+        <input type="text" id="company" name="company"><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address"><br>
+
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone"><br>
+
+        <button type="submit" name="submit">Add Alumni</button>
+    </form>
+
+    <h2>Alumni List</h2>
+    <ul>
+        <?php
+        // Include the backend script
+        include('backend.php');
+
+        // Check if the form is submitted
+        if (isset($_POST['submit'])) {
+            $result = addAlumni(
+                $_POST['first_name'],
+                $_POST['last_name'],
+                $_POST['email'],
+                $_POST['graduation_year'],
+                $_POST['major'],
+                $_POST['job_title'],
+                $_POST['company'],
+                $_POST['address'],
+                $_POST['phone']
+            );
+            echo "<p>$result</p>";
+        }
+
+        // Fetch and display alumni data
+        $alumni = getAlumni();
+        foreach ($alumni as $alum) {
+            echo "<li>{$alum['first_name']} {$alum['last_name']} ({$alum['graduation_year']}) - {$alum['major']}</li>";
+        }
+        ?>
+    </ul>
+</body>
+</html>
